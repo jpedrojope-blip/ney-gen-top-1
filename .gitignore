@@ -1,0 +1,12 @@
+# Segredos — NUNCA versionar nem publicar
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets.json
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store
