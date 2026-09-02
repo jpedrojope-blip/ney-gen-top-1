@@ -46,22 +46,15 @@ const S = { hover:0, charge:0, explode:0, vibrate:0,
 /* =====================================================================
    2. CURSOR
    ===================================================================== */
-const cursor = document.getElementById('cursor');
-const cur = { x:innerWidth/2, y:innerHeight/2, tx:innerWidth/2, ty:innerHeight/2, s:1 };
 const FINE = matchMedia('(hover:hover) and (pointer:fine)').matches;
 let lastPointer = 0;
 if (FINE){
   addEventListener('pointermove', e => {
-    cur.tx = e.clientX; cur.ty = e.clientY;
     S.target.x = (e.clientX/innerWidth)*2-1;
     S.target.y = -((e.clientY/innerHeight)*2-1);
     lastPointer = performance.now();
   }, {passive:true});
-  document.querySelectorAll('a,button,.orbit-card,.svc,.founder').forEach(el => {
-    el.addEventListener('pointerenter', () => gsap.to(cur,{s:2.1,duration:.4,ease:'power2.out'}));
-    el.addEventListener('pointerleave', () => gsap.to(cur,{s:1,duration:.4,ease:'power2.out'}));
-  });
-} else { cursor.remove(); }
+}
 
 /* =====================================================================
    3. ÁUDIO — sintetizado em runtime, criado só no primeiro gesto
@@ -133,7 +126,7 @@ function startSite(){
   document.querySelectorAll('#hero .btr').forEach(el => blurReveal(el,{delay:+(el.dataset.delay||0)}));
   gsap.from('header',{y:-30,opacity:0,duration:1.2,ease:'power3.out',delay:.4});
   gsap.from('.scroll-cue',{scaleY:0,opacity:0,transformOrigin:'top',duration:1.4,ease:'power3.out',delay:1.9});
-  if (TIER.hero3d) initHero3D();
+  // Hero usa imagem estática; não iniciar canvas WebGL oculto.
   ScrollTrigger.refresh();
 }
 
@@ -422,10 +415,8 @@ const orbit = (() => {
 
   function snap(){ target = Math.round((angle-180)/STEP)*STEP + 180; }
   function goTo(i){
-    const cur=Math.round((angle-180)/STEP);
-    let delta=(i-((cur%N)+N)%N);
-    if(delta>N/2) delta-=N; if(delta<-N/2) delta+=N;
-    target = angle - delta*STEP; // manter o giro pelo caminho curto
+    const base = 180 - i*STEP;
+    target = base + Math.round((angle-base)/360)*360;
     bumpAuto();
   }
   function step(dir){ target = Math.round((angle-180)/STEP)*STEP + 180 + dir*STEP; bumpAuto(); }
@@ -435,7 +426,7 @@ const orbit = (() => {
      Só pausa quando: alguém está arrastando, o mouse está em cima do
      carrossel, a seção está fora da viewport, ou a aba está oculta (esse
      último já é tratado pelo loop principal em paused/tick). */
-  const AUTO_MS = 3800;
+  const AUTO_MS = 0;
   let hovering = false;
   let autoNext = performance.now() + AUTO_MS;
   function bumpAuto(now){ autoNext = (now||performance.now()) + AUTO_MS; }
@@ -486,7 +477,7 @@ const orbit = (() => {
     });
   });
   document.querySelectorAll('.orbit-ctrl button').forEach(b=>
-    b.addEventListener('click',()=>step(+b.dataset.dir)));
+    b.addEventListener('click',()=>goTo((front + Number(b.dataset.dir) + N) % N)));
   addEventListener('keydown',e=>{
     if(!visible) return;
     if(e.key==='ArrowLeft')  step(-1);
@@ -503,7 +494,7 @@ const orbit = (() => {
   return {
     tick(){
       if(!visible) return;
-      if(!dragging && !hovering){
+      if(AUTO_MS && !dragging && !hovering){
         const now = performance.now();
         if(now>=autoNext){ step(1); }
       }
@@ -600,13 +591,13 @@ function initHero3D(){
   const DARK  = new THREE.Color('#0a0a0a');
 
   const canvas   = document.getElementById('gl');
-  const renderer = new THREE.WebGLRenderer({canvas,antialias:TIER.aa,powerPreference:'high-performance',stencil:false,depth:true});
+  const renderer = new THREE.WebGLRenderer({canvas,alpha:true,antialias:TIER.aa,powerPreference:'high-performance',stencil:false,depth:true});
   renderer.setPixelRatio(TIER.dpr);
   renderer.setSize(innerWidth,innerHeight,false);
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.06;
-  renderer.setClearColor(0x0a0a0a,1);
+  renderer.setClearColor(0x0a0a0a,0);
 
   const scene  = new THREE.Scene();
   scene.fog    = new THREE.FogExp2(0x0a0a0a,.05);
@@ -920,11 +911,6 @@ function tick(now){
   if(paused) return;
   const dt=Math.min((now-last)/1000,.05); last=now;
   const t=(now-t0)/1000;
-
-  if(FINE){
-    cur.x+=(cur.tx-cur.x)*.18; cur.y+=(cur.ty-cur.y)*.18;
-    cursor.style.transform=`translate3d(${cur.x}px,${cur.y}px,0) scale(${cur.s})`;
-  }
 
   if(analyser){
     analyser.getByteFrequencyData(aData);

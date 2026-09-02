@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>NEW GEN — Code &amp; AI</title>
-<meta name="description" content="New Gen — estúdio de código e inteligência artificial. Digital wilderness." />
+<title>NEW GEN | Código e produto digital</title>
+<meta name="description" content="New Gen cria sites, produtos digitais e sistemas sob medida." />
 <meta name="theme-color" content="#0a0a0a" />
 <link rel="icon" href="assets/favicon.png" />
 
@@ -65,9 +65,6 @@ p{line-height:1.72;color:var(--text-secondary);font-size:clamp(14px,1.05vw,16.5p
 /* ---------------- CURSOR ---------------- */
 /* sem mix-blend-mode: um elemento blendado que se move a 60fps obriga o
    navegador a recompor a página inteira a cada frame. */
-#cursor{position:fixed;top:0;left:0;z-index:900;pointer-events:none;width:34px;height:34px;margin:-17px 0 0 -17px;border:1px solid var(--accent);border-radius:50%;opacity:0;will-change:transform;contain:strict}
-#cursor::after{content:"";position:absolute;inset:15px;background:var(--accent);border-radius:50%}
-@media (hover:hover) and (pointer:fine){#cursor{opacity:1}body,a,button{cursor:none}}
 
 /* ---------------- NAV ---------------- */
 /* sem mix-blend-mode: blending por cima do canvas WebGL custa caro a cada frame.
@@ -87,22 +84,23 @@ nav.links a:hover::after{transform:scaleX(1);transform-origin:left}
 @media(max-width:720px){nav.links a:nth-child(-n+2){display:none}}
 
 /* ---------------- HERO ---------------- */
-#hero{position:relative;height:100svh;min-height:600px;overflow:hidden}
-#gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+#hero{position:relative;height:100svh;min-height:600px;overflow:hidden;background:#0a0a0a url('assets/hero-logo.jpeg') center/cover no-repeat}
+#gl{display:none}
+.hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0;opacity:.82}
 /* fallback estático (mobile / sem WebGL) — zero bytes de rede */
-#hero-static{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:radial-gradient(60% 50% at 50% 46%,#16161a 0%,#0a0a0a 70%)}
+#hero-static{display:none!important}
 #hero-static svg{width:min(46vw,340px);height:auto;filter:drop-shadow(0 0 60px rgba(0,200,83,.28));animation:breathe 6s ease-in-out infinite}
 @keyframes breathe{0%,100%{transform:scale(1);opacity:.95}50%{transform:scale(1.035);opacity:1}}
 body.no-webgl #gl{display:none}
 body.no-webgl #hero-static{display:flex}
-.veil{position:absolute;inset:0;pointer-events:none;background:radial-gradient(125% 92% at 50% 46%,rgba(0,0,0,0) 32%,rgba(0,0,0,.78) 100%)}
+.veil{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,.12) 42%,rgba(0,0,0,.72)),radial-gradient(125% 92% at 50% 46%,rgba(0,0,0,0) 32%,rgba(0,0,0,.78) 100%)}
 .grain{position:fixed;inset:-16%;z-index:400;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");animation:grain 9s steps(5) infinite;will-change:transform;transform:translateZ(0)}
 @keyframes grain{0%,100%{transform:translate3d(0,0,0)}20%{transform:translate3d(-2%,1.4%,0)}40%{transform:translate3d(1.4%,-2%,0)}60%{transform:translate3d(-1.4%,-1.4%,0)}80%{transform:translate3d(2%,.8%,0)}}
 @media(max-width:860px){.grain{display:none}}
 body.lite .grain{display:none}
 
 /* o blend fica só nos blocos de texto, não numa camada fullscreen */
-.hero-ui{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:0 clamp(20px,4.4vw,72px) clamp(26px,3.4vw,52px);pointer-events:none}
+.hero-ui{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;justify-content:flex-end;padding:0 clamp(20px,4.4vw,72px) clamp(26px,3.4vw,52px);pointer-events:none}
 .hero-copy{text-align:center;margin:auto auto 0;padding-bottom:clamp(30px,7vh,90px);mix-blend-mode:difference}
 .hero-foot{color:#fff;text-shadow:0 1px 24px rgba(0,0,0,.75)}
 .hero-copy h1{font-size:clamp(42px,8.6vw,138px)}
@@ -341,7 +339,6 @@ body.lite .grain{display:none}
   <div class="pct">carregando <b>0</b>%</div>
 </div>
 
-<div id="cursor"></div>
 <div class="grain"></div>
 
 <!-- ---------------- NAV ---------------- -->
@@ -351,7 +348,7 @@ body.lite .grain{display:none}
       <path d="M35.8,367.8 L71.5,367.5 L72.0,248.2 L72.5,128.8 L81.1,139.7 L89.7,150.5 L137.1,211.5 L184.6,272.5 L212.6,308.5 L240.5,344.6 L249.0,355.7 L257.5,366.9 L377.8,366.9 L498.0,367.0 L498.0,257.0 L498.0,147.0 L406.0,147.0 L314.0,147.0 L314.0,183.5 L314.0,220.0 L371.0,220.0 L428.0,220.0 L428.0,257.0 L428.0,294.0 L361.2,294.0 L294.5,294.0 L270.0,261.9 L245.5,229.8 L223.2,200.7 L200.9,171.5 L193.6,162.0 L186.4,152.5 L169.9,131.0 L153.3,109.5 L132.6,82.5 L111.9,55.5 L95.7,34.5 L79.6,13.5 L74.6,6.8 L69.5,0.1 L34.8,0.1 L0.0,0.0 L0.0,184.0 L0.0,368.0 Z"/>
       <path d="M269.6,186.0 L270.0,129.3 L270.1,72.6 L270.8,71.9 L367.2,71.4 L463.5,71.0 L481.8,71.0 L500.0,71.0 L500.0,35.5 L500.0,0.0 L314.0,0.0 L127.9,0.0 L137.2,12.2 L146.5,24.4 L163.0,46.1 L179.5,67.8 L212.5,111.2 L245.5,154.5 L257.4,170.2 Z"/>
     </svg>
-    <span><b>New Gen</b><small>Code &amp; AI</small></span>
+    <span><b>New Gen</b><small>Código e produto digital</small></span>
   </a>
   <nav class="links">
     <a href="#services">Serviços</a>
@@ -363,6 +360,7 @@ body.lite .grain{display:none}
 
 <!-- ---------------- HERO ---------------- -->
 <section id="hero">
+  <img class="hero-photo" src="assets/hero-logo.jpeg" alt="Logotipo metálico da New Gen sobre fundo escuro" />
   <canvas id="gl"></canvas>
   <div id="hero-static">
     <svg viewBox="0 0 500 368" aria-hidden="true">
@@ -381,14 +379,14 @@ body.lite .grain{display:none}
   <div class="hero-ui">
     <div class="hero-copy">
       <h1>
-        <span class="line btr" data-text="Construído para" data-delay="1.0"></span>
-        <span class="line thin btr" data-text="a nova geração" data-delay="1.32"></span>
+        <span class="line btr" data-text="Ideias que ganham" data-delay="1.0"></span>
+        <span class="line thin btr" data-text="forma e presença" data-delay="1.32"></span>
       </h1>
-      <p class="hero-sub btr" data-text="code &amp; ai studio — digital wilderness" data-delay="1.75"></p>
+      <p class="hero-sub btr" data-text="experiências digitais feitas para permanecer" data-delay="1.75"></p>
     </div>
     <div class="hero-foot">
-      <div class="hint btr" data-text="passe o mouse no símbolo — segure para explodir" data-delay="2.0"></div>
-      <button class="cta spaced">start a project</button>
+      <div class="hint btr" data-text="explore o símbolo e descubra o que existe por trás" data-delay="2.0"></div>
+      <button class="cta spaced">falar sobre um projeto</button>
     </div>
   </div>
   <div class="scroll-cue"></div>
@@ -397,24 +395,23 @@ body.lite .grain{display:none}
 <!-- ---------------- MARQUEE ---------------- -->
 <div class="marquee">
   <div id="marquee-track">
-    <span>Inteligência Artificial</span><span>Engenharia de Software</span><span>Automação</span>
-    <span>Agentes Autônomos</span><span>Design de Produto</span><span>Data &amp; LLMs</span>
+    <span>Sites</span><span>Engenharia de Software</span><span>Automação</span>
+    <span>Produtos Digitais</span><span>Design de Produto</span><span>Sistemas sob medida</span>
   </div>
 </div>
 
 <!-- ---------------- MANIFESTO ---------------- -->
 <section id="manifesto">
   <div class="wrap manifesto-grid">
-    <div><div class="eyebrow">01 — Manifesto</div></div>
+    <div><div class="eyebrow">01 · Manifesto</div></div>
     <div>
       <p class="big-statement">
-        Software não é mais escrito linha por linha. Ele é <em>orquestrado</em>.
-        Construímos sistemas onde código e inteligência artificial operam
-        como um só organismo — rápidos, selvagens e sob controle.
+        Boas ideias precisam de execução clara. Transformamos problemas difíceis
+        em sites, produtos e sistemas que funcionam no dia a dia.
       </p>
       <div class="manifesto-cols">
-        <p>Nascemos na fronteira entre engenharia e IA generativa. Cada produto que entregamos é pensado para aprender com o uso, não para envelhecer com ele.</p>
-        <p>Trabalhamos com poucos clientes por trimestre. Profundidade em vez de volume — é assim que se constrói algo que dura mais que um ciclo de hype.</p>
+        <p>Somos um estúdio pequeno e próximo. Entendemos o cenário, fazemos as escolhas certas e entregamos sem complicar.</p>
+        <p>Trabalhamos com poucos projetos por vez para cuidar de cada detalhe e construir algo que continue útil depois do lançamento.</p>
       </div>
     </div>
   </div>
@@ -423,30 +420,30 @@ body.lite .grain{display:none}
 <!-- ---------------- SERVICES ---------------- -->
 <section id="services">
   <div class="wrap">
-    <div class="eyebrow" style="margin-bottom:26px">02 — Serviços</div>
+    <div class="eyebrow" style="margin-bottom:26px">02 · Serviços</div>
     <div id="glyph-wrap">
       <h2 id="glyph-title">NOSSOS SERVIÇOS</h2>
       <canvas id="glyph-canvas"></canvas>
     </div>
 
     <div class="svc">
-      <div class="num">/ 01</div><h3>Agentes &amp; Automação</h3>
-      <p>Agentes autônomos que executam trabalho real: leem seus sistemas, tomam decisões e agem. Integração com as ferramentas que sua operação já usa.</p>
-      <div class="tags"><i>LLM Orchestration</i><i>MCP</i><i>RAG</i><i>Workflows</i></div>
+      <div class="num">/ 01</div><h3>Automação</h3>
+      <p>Menos tarefa repetitiva e mais tempo para o que importa. Ligamos suas ferramentas e deixamos o trabalho fluir.</p>
+      <div class="tags"><i>Integrações</i><i>Processos</i><i>APIs</i><i>Workflows</i></div>
     </div>
     <div class="svc">
       <div class="num">/ 02</div><h3>Produtos Digitais</h3>
-      <p>Do zero ao ar. Web apps, plataformas e interfaces com performance de estúdio premiado — motion, WebGL e engenharia que aguenta escala.</p>
+      <p>Da primeira ideia ao lançamento. Criamos sites, plataformas e interfaces rápidas, bonitas e fáceis de usar.</p>
       <div class="tags"><i>Next.js</i><i>Three.js</i><i>GSAP</i><i>Design System</i></div>
     </div>
     <div class="svc">
-      <div class="num">/ 03</div><h3>Engenharia de IA</h3>
-      <p>Fine-tuning, pipelines de dados, avaliação e observabilidade. IA que você consegue medir, auditar e melhorar — não uma caixa preta.</p>
-      <div class="tags"><i>Evals</i><i>Vector DB</i><i>Fine-tuning</i><i>Guardrails</i></div>
+      <div class="num">/ 03</div><h3>Dados e ferramentas</h3>
+      <p>Organizamos dados, painéis e ferramentas internas para sua equipe encontrar respostas e tomar decisões com mais clareza.</p>
+      <div class="tags"><i>Painéis</i><i>Dados</i><i>Relatórios</i><i>Integrações</i></div>
     </div>
     <div class="svc">
       <div class="num">/ 04</div><h3>Criação de Software</h3>
-      <p>Sistemas sob medida, do levantamento à entrega: back-end, banco de dados, integrações e painel de gestão. Software que resolve o problema da sua operação — não um template adaptado.</p>
+      <p>Sistemas sob medida, do levantamento à entrega. Back-end, banco de dados, integrações e painel de gestão para resolver seu problema de verdade.</p>
       <div class="tags"><i>Sistemas Web</i><i>APIs</i><i>Integrações</i><i>Dashboards</i></div>
     </div>
   </div>
@@ -457,10 +454,10 @@ body.lite .grain{display:none}
   <div class="wrap">
     <div class="founders-head">
       <div>
-        <div class="eyebrow" style="margin-bottom:22px">03 — Fundadores</div>
+        <div class="eyebrow" style="margin-bottom:22px">03 · Fundadores</div>
         <h2>As pessoas<br>por trás</h2>
       </div>
-      <p>Um estúdio pequeno por escolha. Quem vende é quem constrói — você fala direto com quem escreve o código.</p>
+      <p>Um estúdio pequeno por escolha. Você fala direto com quem pensa, desenha e constrói o projeto.</p>
     </div>
 
     <div class="founders-grid">
@@ -472,9 +469,9 @@ body.lite .grain{display:none}
         </div>
         <div class="info">
           <h3 class="disciplines">Arquitetura <s>•</s> Desenvolvimento <s>•</s> Tecnologia</h3>
-          <span class="role">Co-Founder — @newgen_code</span>
+          <span class="role">Co-founder · @newgen_code</span>
         </div>
-        <p class="bio">Projetando e desenvolvendo soluções para o futuro dos negócios.</p>
+        <p class="bio">Transformando ideias em experiências digitais simples e bem resolvidas.</p>
         <div class="social"><a href="https://www.instagram.com/newgen_code/" target="_blank" rel="noopener">Instagram</a></div>
       </article>
 
@@ -486,9 +483,9 @@ body.lite .grain{display:none}
         </div>
         <div class="info">
           <h3 class="disciplines">Gestão <s>•</s> Estratégia <s>•</s> Vendas</h3>
-          <span class="role">Founder — @newgen_code</span>
+          <span class="role">Founder · @newgen_code</span>
         </div>
-        <p class="bio">Construindo uma empresa de tecnologia focada em inovação e resultados.</p>
+        <p class="bio">Cuidando da estratégia, das parcerias e de cada entrega.</p>
         <div class="social"><a href="https://www.instagram.com/newgen_code/" target="_blank" rel="noopener">Instagram</a></div>
       </article>
     </div>
@@ -500,17 +497,17 @@ body.lite .grain{display:none}
   <div class="wrap">
     <div class="reveal-head">
       <div>
-        <div class="eyebrow" style="margin-bottom:20px">04 — Showreel</div>
+        <div class="eyebrow" style="margin-bottom:20px">04 · Showreel</div>
         <h2>Do símbolo<br>ao sistema</h2>
       </div>
-      <p style="max-width:38ch">A marca New Gen nasce como um monograma e se desdobra em um sistema completo de identidade — em movimento, som e código.</p>
+      <p style="max-width:38ch">Uma identidade visual que aparece no símbolo, no movimento, no som e em cada detalhe do trabalho.</p>
     </div>
   </div>
 
   <div class="video-shell wrap" style="padding-inline:0">
     <video id="brandvid" poster="assets/brand-reveal-poster.webp" muted loop playsinline preload="none"
            data-webm="assets/brand-reveal.webm" data-mp4="assets/brand-reveal.mp4"></video>
-    <div class="video-meta"><span class="dot"></span><span>New Gen — Brand Identity Reveal</span></div>
+    <div class="video-meta"><span class="dot"></span><span>New Gen · identidade visual</span></div>
     <button class="sound-btn" id="soundbtn">som off</button>
   </div>
 </section>
@@ -520,10 +517,10 @@ body.lite .grain{display:none}
   <div class="wrap">
     <div class="work-head">
       <div>
-        <div class="eyebrow" style="margin-bottom:22px">05 — Selected work</div>
-        <h2>Work hard.<br>Play loud.</h2>
+        <div class="eyebrow" style="margin-bottom:22px">05 · Projetos</div>
+        <h2>Projetos com<br>presença.</h2>
       </div>
-      <p>Sites no ar, feitos pela New Gen. Gire a órbita com o mouse ou o dedo até encontrar o que quiser abrir.</p>
+      <p>Alguns projetos que colocamos no ar. Gire a órbita com o mouse ou o dedo e abra os sites que quiser conhecer.</p>
     </div>
 
     <div class="orbit-stage" id="orbit">
@@ -579,11 +576,11 @@ body.lite .grain{display:none}
           <span class="name">Partner Escola de Danças</span>
           <span class="kind">Site institucional · Brasília</span>
         </div>
-        <div class="orbit-hint">arraste para girar a órbita · clique num card para trazê-lo à frente</div>
+        <div class="orbit-hint">arraste para explorar · clique em um projeto para vê-lo de perto</div>
       </div>
       <div class="orbit-ctrl">
-        <button type="button" data-dir="-1" aria-label="Projeto anterior">←</button>
-        <button type="button" data-dir="1" aria-label="Próximo projeto">→</button>
+        <button type="button" data-dir="1" aria-label="Projeto anterior">←</button>
+        <button type="button" data-dir="-1" aria-label="Próximo projeto">→</button>
         <a class="orbit-open" id="orbit-open" href="https://jpedrojope-blip.github.io/dan-a-top/" target="_blank" rel="noopener">Abrir site ↗</a>
       </div>
     </div>
@@ -605,10 +602,10 @@ body.lite .grain{display:none}
 <section id="contact">
   <canvas id="footfog"></canvas>
   <div class="wrap">
-    <div class="eyebrow" style="margin-bottom:34px">06 — Contato</div>
+    <div class="eyebrow" style="margin-bottom:34px">06 · Contato</div>
     <div class="contact-big">
-      <span class="btr-scroll" data-text="Vamos construir"></span><br>
-      <a href="https://www.instagram.com/newgen_code/" target="_blank" rel="noopener">algo selvagem →</a>
+      <span class="btr-scroll" data-text="Vamos fazer"></span><br>
+      <a href="https://www.instagram.com/newgen_code/" target="_blank" rel="noopener">algo que funcione →</a>
     </div>
 
     <a class="ig-cta" href="https://www.instagram.com/newgen_code/" target="_blank" rel="noopener">
@@ -619,25 +616,25 @@ body.lite .grain{display:none}
       </svg>
       <span class="ig-label">
         <b>@newgen_code</b>
-        <small>Fale com a gente no Instagram — respondemos por lá</small>
+        <small>Fale com a gente no Instagram. Respondemos por lá.</small>
       </span>
       <i class="ig-arrow">→</i>
     </a>
 
     <div class="contact-row">
-      <div class="contact-col"><h4>Contato</h4><a href="https://www.instagram.com/newgen_code/" target="_blank" rel="noopener">Instagram — @newgen_code</a><a href="mailto:newgencodeai@gmail.com">newgencodeai@gmail.com</a></div>
-      <div class="contact-col"><h4>Serviços</h4><a href="#services">Agentes &amp; IA</a><a href="#services">Produtos digitais</a><a href="#services">Marca &amp; identidade</a></div>
-      <div class="contact-col"><h4>Estúdio</h4><a href="#founders">Fundadores</a><a href="#work">Selected work</a><a href="#reveal">Showreel</a></div>
-      <div class="contact-col"><h4>Base</h4><p>Brasil — remoto global</p><p>Seg – Sex, 09h – 19h BRT</p></div>
+      <div class="contact-col"><h4>Contato</h4><a href="https://www.instagram.com/newgen_code/" target="_blank" rel="noopener">Instagram · @newgen_code</a><a href="mailto:newgencodeai@gmail.com">newgencodeai@gmail.com</a></div>
+      <div class="contact-col"><h4>Serviços</h4><a href="#services">Automação</a><a href="#services">Produtos digitais</a><a href="#services">Marca e identidade</a></div>
+      <div class="contact-col"><h4>Estúdio</h4><a href="#founders">Fundadores</a><a href="#work">Projetos</a><a href="#reveal">Identidade visual</a></div>
+      <div class="contact-col"><h4>Base</h4><p>Brasil · atendimento remoto</p><p>Seg a Sex, 09h às 19h BRT</p></div>
     </div>
 
-    <div class="legal"><span>© 2026 New Gen — Code &amp; AI</span><span>Digital Wilderness</span></div>
+    <div class="legal"><span>© 2026 New Gen · Código e produto digital</span><span>Feito para funcionar</span></div>
   </div>
 </section>
 
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script defer src="app.js"></script>
+<script defer src="app.js?v=5"></script>
 </body>
 </html>
