@@ -36,7 +36,7 @@ assert all(link in check.ids for link in check.links)
 assert check.projects == 6, check.projects
 out = root/'dist'
 out.mkdir(exist_ok=True)
-for name in ('index.html','premium.css','navigation.js'):
+for name in ('index.html','premium.css','cinematic.css','navigation.js','hero3d.mjs'):
     shutil.copy2(root/name, out/name)
 shutil.copytree(root/'assets', out/'assets', dirs_exist_ok=True)
 print('HTML structure, six projects, local assets and anchor links passed. Static build ready.')

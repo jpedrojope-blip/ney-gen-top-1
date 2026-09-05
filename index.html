@@ -324,6 +324,7 @@ body.lite .grain{display:none}
 @media (prefers-reduced-motion:reduce){.grain{animation:none}#hero-static svg{animation:none}}
 </style>
 <link rel="stylesheet" href="premium.css" />
+<link rel="stylesheet" href="cinematic.css" />
 <noscript><style>@media(max-width:720px){nav.links{display:flex;position:static;flex-wrap:wrap;flex-direction:row;padding:0;border:0}header{height:auto;min-height:78px;flex-wrap:wrap;padding-block:16px}.menu-toggle{display:none}}</style></noscript>
 </head>
 <body>
@@ -357,7 +358,7 @@ body.lite .grain{display:none}
       <path d="M35.8,367.8 L71.5,367.5 L72.0,248.2 L72.5,128.8 L81.1,139.7 L89.7,150.5 L137.1,211.5 L184.6,272.5 L212.6,308.5 L240.5,344.6 L249.0,355.7 L257.5,366.9 L377.8,366.9 L498.0,367.0 L498.0,257.0 L498.0,147.0 L406.0,147.0 L314.0,147.0 L314.0,183.5 L314.0,220.0 L371.0,220.0 L428.0,220.0 L428.0,257.0 L428.0,294.0 L361.2,294.0 L294.5,294.0 L270.0,261.9 L245.5,229.8 L223.2,200.7 L200.9,171.5 L193.6,162.0 L186.4,152.5 L169.9,131.0 L153.3,109.5 L132.6,82.5 L111.9,55.5 L95.7,34.5 L79.6,13.5 L74.6,6.8 L69.5,0.1 L34.8,0.1 L0.0,0.0 L0.0,184.0 L0.0,368.0 Z"/>
       <path d="M269.6,186.0 L270.0,129.3 L270.1,72.6 L270.8,71.9 L367.2,71.4 L463.5,71.0 L481.8,71.0 L500.0,71.0 L500.0,35.5 L500.0,0.0 L314.0,0.0 L127.9,0.0 L137.2,12.2 L146.5,24.4 L163.0,46.1 L179.5,67.8 L212.5,111.2 L245.5,154.5 L257.4,170.2 Z"/>
     </svg></div><div class="art-bottom"><span>IDEIAS EM MOVIMENTO</span><span>01 — ∞</span></div></div></div>
-<div class="wrap hero-bottom"><span>Uma boa impressão é só o começo.</span><a href="#work">Conheça nosso trabalho ↓</a></div></section>
+<div class="wrap hero-bottom"><span>Uma boa impressão é só o começo.</span><a href="#work">Conheça nosso trabalho ↓</a><button class="motion-toggle" type="button" aria-pressed="false" hidden>Pausar movimento</button></div></section>
 
 <!-- ---------------- MARQUEE ---------------- -->
 <div class="marquee">
@@ -559,5 +560,6 @@ body.lite .grain{display:none}
 
 </main>
 <script defer src="navigation.js"></script>
+<script type="module" src="hero3d.mjs"></script>
 </body>
 </html>

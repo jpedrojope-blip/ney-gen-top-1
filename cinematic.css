@@ -1,0 +1,26 @@
+/* An open studio stage: the brand is the sculpture, light defines its volume. */
+:root{--bg-primary:#080a09;--accent:#48d99b;--color-brand-green:#48d99b;--line:#ffffff16;--text-secondary:#a9b2ad}
+header{background:#080a09e8;border-color:#ffffff0d;height:88px;backdrop-filter:blur(16px)}
+#hero{position:relative;background:radial-gradient(ellipse at 82% 55%,#142b2150,transparent 52%),#080a09}
+.hero-layout{position:relative;grid-template-columns:1fr 1.1fr;gap:0;padding-top:74px;padding-bottom:66px;min-height:650px}
+.hero-copy{z-index:2;position:relative}.hero-copy .eyebrow{letter-spacing:.2em;font-size:9px;color:#b3c0b8}
+.hero-copy h1{font-size:clamp(60px,6.9vw,98px);font-weight:400;letter-spacing:-.07em;line-height:1.025;margin:32px 0 27px}
+.hero-copy h1 em{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-style:italic;letter-spacing:-.065em;color:#9ce3bf}
+.hero-sub{font-size:14px;max-width:350px;line-height:1.85;color:#a7b3ab}.hero-actions{margin-top:32px;gap:27px}
+.primary{background:#dcece1;color:#10251a;border-radius:40px;font-size:12px;font-weight:500;min-height:50px;padding-inline:24px}.primary:hover{background:#adf0cd}.text-link{font-size:11px;border-color:#ffffff30}
+.hero-art{height:550px;min-height:0;align-self:center;border:0;background:none;overflow:visible;isolation:isolate;position:relative}
+.hero-art:before{content:'';position:absolute;z-index:-1;width:76%;height:45%;left:16%;top:31%;background:radial-gradient(ellipse,#28b46d23,transparent 70%);filter:blur(20px)}
+.hero-art:after{content:'';position:absolute;width:65%;height:25px;left:18%;top:auto;bottom:40px;border:0;border-radius:50%;transform:rotate(-7deg);background:#000b;filter:blur(14px);z-index:-1}
+.hero-art .art-grid,.hero-art .art-top,.hero-art .art-bottom{display:none}
+.hero-art .symbol{width:72%;animation:none;transform:perspective(800px) rotateY(-22deg) rotateX(8deg) rotateZ(-4deg);filter:drop-shadow(10px 6px 0 #155c3a) drop-shadow(0 20px 35px #000);transition:opacity .5s}
+.hero-art .symbol svg{fill:#a6d5bb}.hero-art.scene-ready .symbol{opacity:0;visibility:hidden}.hero-art canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1s;touch-action:pan-y}.hero-art.scene-ready canvas{opacity:1}
+.hero-bottom{position:relative;align-items:center;border-top:1px solid #ffffff10;padding-top:23px;padding-bottom:26px;color:#7e8c83;font-size:10px}.hero-bottom a{color:#bcc9c0}
+.motion-toggle{font-family:inherit;color:#9fafa5;border:1px solid #ffffff22;background:none;border-radius:30px;min-height:44px;padding:0 15px;font-size:10px;transition:color .2s,border-color .2s}.motion-toggle:hover{color:#e5f1e8;border-color:#6b9880}.motion-toggle[hidden]{display:none}
+.marquee{background:#0a0e0b;border-color:#ffffff10}.marquee span{font-size:11px;color:#98a69d}.marquee span:after{background:#386a4d}
+.project-card .frame{transition:transform .55s cubic-bezier(.2,.8,.2,1),box-shadow .55s;transform:perspective(1100px) rotateX(0);transform-origin:center bottom}.project-card:hover .frame{transform:perspective(1100px) rotateX(3deg) translateY(-5px);box-shadow:0 24px 45px #0005}
+@media(prefers-reduced-motion:no-preference){.hero-copy .eyebrow{animation:entry .8s both}.hero-copy h1{animation:entry 1.1s .1s both}.hero-sub{animation:entry 1.1s .22s both}.hero-actions{animation:entry 1.1s .34s both}}
+@keyframes entry{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:1500px){.hero-layout{min-height:730px}.hero-art{height:620px}}
+@media(max-width:1000px){.hero-copy h1{font-size:clamp(57px,7.2vw,79px)}.hero-layout{min-height:580px;padding-top:50px}.hero-art{height:450px}.hero-sub{max-width:320px}}
+@media(max-width:720px){header{height:78px}.hero-layout{grid-template-columns:1fr;min-height:0;padding-top:44px;padding-bottom:0;gap:0}.hero-copy h1{font-size:clamp(56px,12vw,82px);margin:25px 0}.hero-sub{max-width:350px}.hero-art{height:370px;width:calc(100% + 36px);margin-left:-18px;aspect-ratio:auto;overflow:hidden}.hero-art:after{bottom:30px}.hero-actions{gap:23px;margin-top:26px}.hero-bottom{flex-wrap:wrap;gap:10px 20px;padding-top:15px;padding-bottom:18px}.hero-bottom>span{display:none}.motion-toggle{margin-left:auto;font-size:9px;padding-inline:12px}.hero-bottom a{font-size:10px}.hero-copy .eyebrow{font-size:9px;letter-spacing:.12em}.project-card:hover .frame{transform:none}}
+@media(prefers-reduced-motion:reduce){.hero-art .symbol,.project-card .frame{transform:none;transition:none}.hero-art canvas{transition:none}}
