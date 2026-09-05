@@ -13,7 +13,17 @@ console.log('Menu: open, Escape, link navigation and desktop reset passed.');
 let onVisibility;
 const services = { classList: { toggle(name, active) { assert.equal(name, 'services-in-view'); this.active = active; } } };
 class Observer { constructor(callback) { onVisibility = callback; } observe(element) { assert.equal(element, services); } }
-vm.runInNewContext(fs.readFileSync('section-motion.js', 'utf8'), { document: { querySelector: () => services }, window: { IntersectionObserver: Observer }, IntersectionObserver: Observer });
+const rows = Array.from({ length: 4 }, (_, i) => ({
+  classList: { toggle(_, value) { this.active = value; }, remove() { this.active = false; } },
+  querySelector(selector) { return selector === 'h3' ? { textContent: 'Service ' + i } : this.button; },
+  append(button) { this.button = button; }
+}));
+vm.runInNewContext(fs.readFileSync('section-motion.js', 'utf8'), { document: { querySelector: () => services, querySelectorAll: () => rows, createElement: () => ({ attrs: {}, events: {}, setAttribute(k, v) { this.attrs[k] = v; }, getAttribute(k) { return this.attrs[k]; }, addEventListener(k, fn) { this.events[k] = fn; } }) }, window: { IntersectionObserver: Observer }, IntersectionObserver: Observer });
 onVisibility([{ isIntersecting: true }]); assert.equal(services.classList.active, true);
 onVisibility([{ isIntersecting: false }]); assert.equal(services.classList.active, false);
 console.log('Services color transition: viewport entry and exit passed.');
+rows[0].button.events.click(); assert.equal(rows[0].button.attrs['aria-pressed'], 'true');
+rows[1].button.events.click(); assert.equal(rows[0].button.attrs['aria-pressed'], 'false'); assert.equal(rows[1].classList.active, true);
+rows[1].button.events.click(); assert.equal(rows[1].classList.active, false);
+rows[2].button.events.click(); rows[2].button.events.keydown({ key: 'Escape' }); assert.equal(rows[2].button.attrs['aria-pressed'], 'false');
+console.log('Service highlight: selection, switching, second tap and Escape passed.');
