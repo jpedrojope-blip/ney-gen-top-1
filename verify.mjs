@@ -27,3 +27,23 @@ rows[1].button.events.click(); assert.equal(rows[0].button.attrs['aria-pressed']
 rows[1].button.events.click(); assert.equal(rows[1].classList.active, false);
 rows[2].button.events.click(); rows[2].button.events.keydown({ key: 'Escape' }); assert.equal(rows[2].button.attrs['aria-pressed'], 'false');
 console.log('Service highlight: selection, switching, second tap and Escape passed.');
+const videoEvents = {};
+const film = {
+  paused: true, ended: false, dataset: {},
+  addEventListener(name, fn) { videoEvents[name] = fn; },
+  play() { this.paused = false; return Promise.resolve(); },
+  pause() { this.paused = true; }
+};
+let filmObserver;
+const media = { matches: false, addEventListener(_, fn) { videoEvents.motion = fn; } };
+vm.runInNewContext(fs.readFileSync('video-motion.js', 'utf8'), {
+  document: { hidden: false, querySelector: () => film, addEventListener(_, fn) { videoEvents.visibility = fn; } },
+  matchMedia: () => media,
+  IntersectionObserver: class { constructor(fn) { filmObserver = fn; } observe(element) { assert.equal(element, film); } }
+});
+filmObserver([{ isIntersecting: true }]); await Promise.resolve(); assert.equal(film.paused, false);
+videoEvents.pause(); assert.equal(film.dataset.userPaused, 'true');
+filmObserver([{ isIntersecting: false }]); assert.equal(film.paused, true);
+filmObserver([{ isIntersecting: true }]); assert.equal(film.paused, true);
+videoEvents.play(); media.matches = true; videoEvents.motion(); assert.equal(film.paused, true);
+console.log('Brand film: viewport autoplay, user pause and reduced motion passed.');
