@@ -57,3 +57,75 @@ header{background:#080a09e8;border-color:#ffffff0d;height:88px;backdrop-filter:b
 @media(hover:hover) and (pointer:fine){#services .svc:hover{--service-active:1}}
 @media(max-width:720px){#services .svc:before{inset-inline:-10px}#services .svc:after{left:-10px}#services .svc h3{transform:translateX(calc(var(--service-active)*4px))}}
 @media(prefers-reduced-motion:reduce){#services .svc:before,#services .svc:after,#services .svc h3,#services .svc .tags i{transition:none}#services .svc h3{transform:none}}
+
+
+/* ================= REFACTOR ================= */
+
+/* ---- Tipografia: o site caia em Arial e o corpo era pequeno demais ---- */
+body{font-family:"Inter","Helvetica Neue",-apple-system,BlinkMacSystemFont,Arial,sans-serif}
+h1,h2,h3{font-weight:600}
+h2{font-size:clamp(36px,4.8vw,68px);line-height:1.06;letter-spacing:-.038em}
+p{font-size:16px;line-height:1.75}
+.hero-sub{font-size:17px;line-height:1.7;max-width:44ch}
+.manifesto-cols p,.svc p,.step p,.founder .bio{font-size:15.5px;line-height:1.72}
+.work-head p,.founders-head p,.reveal-head p{font-size:15.5px;max-width:38ch}
+.eyebrow{font-size:11px;letter-spacing:.2em}
+.note-index,.step b,.svc .num{font-size:10.5px;letter-spacing:.22em}
+.meta span,.stat span,.svc .tags i,.founder .role{font-size:10.5px;letter-spacing:.18em}
+.contact-big{font-size:clamp(40px,8.4vw,118px)}
+.stat b{font-weight:500}
+
+/* ---- Serviços: mesma interação, paleta escura da marca ---- */
+#services{background-color:#0a0a0a;color:var(--text-primary)}
+#services.services-in-view{background-color:#0d1210}
+#services .eyebrow{color:var(--text-secondary)}
+#glyph-wrap h2,#services .svc h3{color:var(--text-primary)}
+#services .svc,#services .svc:last-child{border-color:rgba(255,255,255,.11)}
+#services .svc .num{color:var(--accent)}
+#services .svc p{color:var(--text-secondary)}
+#services .svc:before{background:linear-gradient(105deg,rgba(0,200,83,.16),rgba(0,200,83,.05) 58%,transparent)}
+#services .svc:after{background:var(--accent)}
+#services .svc .tags i{color:var(--text-secondary);border-color:rgba(255,255,255,.15);background-color:rgba(0,200,83,calc(var(--service-active)*.14))}
+#services .svc:hover .tags i{border-color:rgba(0,200,83,.35)}
+.service-highlight:focus-visible{outline:2px solid var(--accent)}
+
+/* ---- Projetos: captura real dentro de uma janela de navegador ---- */
+.project-card .frame{position:relative;height:auto;aspect-ratio:16/10.65;padding-top:28px;overflow:hidden;
+  background:#131316;border:1px solid rgba(255,255,255,.1);border-radius:7px}
+.project-card .frame:before{content:'';position:absolute;top:0;left:0;right:0;height:28px;
+  background:linear-gradient(#212127,#191920);border-bottom:1px solid rgba(255,255,255,.07)}
+.project-card .frame:after{content:'';position:absolute;top:11px;left:14px;width:6px;height:6px;border-radius:50%;
+  background:#4a4a54;box-shadow:11px 0 0 #4a4a54,22px 0 0 #4a4a54;z-index:1}
+.project-card .frame img{position:relative;display:block;width:100%;height:100%;object-fit:cover;object-position:top center;
+  transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.project-card .frame .scrim{display:flex;position:absolute;inset:28px 0 0 0;z-index:2;
+  align-items:center;justify-content:center;background:rgba(4,10,6,.62);opacity:0;
+  transition:opacity .4s var(--ease-out);pointer-events:none}
+.project-card .frame .scrim:after{content:'VER SITE AO VIVO ↗';font-size:10px;letter-spacing:.24em;color:#fff;
+  border:1px solid rgba(255,255,255,.55);padding:13px 22px;border-radius:100px}
+.project-card:hover .frame,.project-card:focus-visible .frame{border-color:rgba(0,200,83,.45)}
+.project-card:hover .frame img{transform:scale(1.04)}
+.project-card:hover .frame .scrim,.project-card:focus-visible .frame .scrim{opacity:1}
+.project-card .meta b{font-size:clamp(16px,1.5vw,20px)}
+.orbit-stage{gap:clamp(38px,4vw,64px) clamp(26px,2.6vw,40px)}
+
+/* ---- Prova ---- */
+#stats .stat b{font-variant-numeric:tabular-nums}
+
+/* ---- Processo ---- */
+#process{padding:clamp(70px,10vh,140px) 0;border-top:1px solid var(--line);position:relative;z-index:2;background:var(--bg-primary)}
+#process h2 em{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:400;letter-spacing:-.05em;color:#9ce3bf}
+.process-head{margin-bottom:clamp(34px,5vw,64px)}
+.process-head .eyebrow{margin-bottom:22px}
+.process-grid{display:grid;gap:clamp(26px,3vw,44px);grid-template-columns:1fr}
+@media(min-width:640px){.process-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:1040px){.process-grid{grid-template-columns:repeat(4,1fr)}}
+.step{padding-top:20px;border-top:1px solid var(--line)}
+.step b{display:block;color:var(--accent);margin-bottom:16px;font-weight:500}
+.step h3{font-size:clamp(19px,1.6vw,23px);letter-spacing:-.03em;margin-bottom:12px}
+.step p{max-width:32ch}
+
+@media(prefers-reduced-motion:reduce){
+  .project-card:hover .frame img{transform:none}
+  .project-card .frame .scrim{transition:none}
+}
